@@ -1,19 +1,23 @@
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
-Version:	00.05
+Version:	0103
 Release:	1
 License:	Distributable
-Group:		Applications
-Group(de):	Applikationen
-Group(pl):	Aplikacje
-Source0:	http://www.ibiblio.org/pub/Linux/apps/tex/dvi/%{name}-%{version}.tar.gz
+Group:		Applications/Publishing
+Group(cs):	Aplikace/Publikování
+Group(de):	Applikationen/Publizieren
+Group(pl):	Aplikacje/Publikowanie
+Source0:	ftp://ftp.gust.org.pl:/TeX/dviware/tmview/tmv%{version}.tgz
 Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
+Patch1:		%{name}-paths_libs.patch
+Patch2:		%{name}-Makefile.patch
 %ifnarch sparc sparc64
 BuildRequires:	svgalib-devel
 %endif
 BuildRequires:	XFree86-devel
+BuildRequires:	kpathsea-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		x11bindir	/usr/X11R6/bin
@@ -40,9 +44,10 @@ znajduje siê w pakietach dvifb, dvisvga oraz dvilx.
 %package -n dvifb
 Summary:	DVI files viewer - framebuffer version
 Summary(pl):	Przegl±darka plików DVI - wersja pod framebuffer
-Group:		Applications
-Group(de):	Applikationen
-Group(pl):	Aplikacje
+Group:		Applications/Publishing
+Group(cs):	Aplikace/Publikování
+Group(de):	Applikationen/Publizieren
+Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvifb
@@ -54,9 +59,10 @@ Przegl±darka plików DVI - wersja pod framebuffer
 %package -n dvisvga
 Summary:	DVI files viewer - SVGAlib version
 Summary(pl):	Przegl±darka plików DVI - wersja dla SVGAlib
-Group:		Applications
-Group(de):	Applikationen
-Group(pl):	Aplikacje
+Group:		Applications/Publishing
+Group(cs):	Aplikace/Publikování
+Group(de):	Applikationen/Publizieren
+Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvisvga
@@ -68,9 +74,10 @@ Przegl±darka plików DVI - wersja dla SVGAlib.
 %package -n dvix11
 Summary:	DVI files viewer - X11 version
 Summary(pl):	Przegl±darka plików DVI - wersja dla X Window System
-Group:		X11/Applications
-Group(de):	X11/Applikationen
-Group(pl):	X11/Aplikacje
+Group:		Applications/Publishing
+Group(cs):	Aplikace/Publikování
+Group(de):	Applikationen/Publizieren
+Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvix11
