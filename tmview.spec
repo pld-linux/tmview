@@ -5,9 +5,6 @@ Version:	0103
 Release:	4
 License:	distributable
 Group:		Applications/Publishing
-Group(cs):	Aplikace/Publikování
-Group(de):	Applikationen/Publizieren
-Group(pl):	Aplikacje/Publikowanie
 Source0:	ftp://ftp.gust.org.pl:/TeX/dviware/tmview/tmv%{version}.tgz
 Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
@@ -61,9 +58,6 @@ znajduje siê w pakietach dvifb, dvisvga oraz dvilx.
 Summary:	DVI files viewer - framebuffer version
 Summary(pl):	Przegl±darka plików DVI - wersja pod framebuffer
 Group:		Applications/Publishing
-Group(cs):	Aplikace/Publikování
-Group(de):	Applikationen/Publizieren
-Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvifb
@@ -77,9 +71,6 @@ Summary:	DVI files viewer - SVGAlib version
 Summary(cs):	Prohlí¾eè souborù DVI pro knihovnu SVGAlib
 Summary(pl):	Przegl±darka plików DVI - wersja dla SVGAlib
 Group:		Applications/Publishing
-Group(cs):	Aplikace/Publikování
-Group(de):	Applikationen/Publizieren
-Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvisvga
@@ -92,9 +83,6 @@ Przegl±darka plików DVI - wersja dla SVGAlib.
 Summary:	DVI files viewer - X11 version
 Summary(pl):	Przegl±darka plików DVI - wersja dla X Window System
 Group:		Applications/Publishing
-Group(cs):	Aplikace/Publikování
-Group(de):	Applikationen/Publizieren
-Group(pl):	Aplikacje/Publikowanie
 Requires:	%{name} = %{version}
 
 %description -n dvix11
