@@ -2,7 +2,7 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/Publishing
 Group(cs):	Aplikace/Publikování
@@ -13,6 +13,7 @@ Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
 Patch2:		%{name}-Makefile.patch
+Patch3:		%{name}-resolution.patch
 %ifnarch sparc sparc64
 BuildRequires:	svgalib-devel
 %endif
@@ -107,6 +108,7 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__make} -f MakeFb CFLAGS="%{rpmcflags}"
