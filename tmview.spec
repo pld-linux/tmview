@@ -1,5 +1,6 @@
 
 %define x11bindir /usr/X11R6/bin
+%define x11mandir /usr/X11R6/share/man
 
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
@@ -10,9 +11,11 @@ License:	?
 Group:		Applications
 Group(de):	Applikationen
 Group(pl):	Aplikacje
+Source0:	www.ibiblio.org/pub/Linux/apps/tex/dvi/%{name}-%{version}.tar.gz
+Source1:	%{name}.conf
+Patch0:		%{name}-rc.patch
 BuildRequires:	svgalib-devel
 BuildRequires:	XFree86-devel
-Source0:	www.ibiblio.org/pub/Linux/apps/tex/dvi/%{name}-%{version}.tar.gz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -78,6 +81,7 @@ Przegl±darka plików DVI - wersja dla X Window System.
 
 %prep
 %setup  -q	-n %{name}
+%patch0 -p1
 
 %build
 %{__make} -f MakeFb CC="gcc -c %{rpmcflags}"
@@ -89,9 +93,16 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 	$RPM_BUILD_ROOT%{_bindir} \
-	$RPM_BUILD_ROOT%{x11bindir}
+	$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
+	$RPM_BUILD_ROOT%{x11bindir} \
+	$RPM_BUILD_ROOT%{x11mandir}/man1
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
+echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
+echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
+echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{x11mandir}/man1/dvilx.1
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
 install dvifb.linux $RPM_BUILD_ROOT%{_bindir}/dvifb
 install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
@@ -105,16 +116,20 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/tmview.dvi doc/tm.ps README*
-%{_mandir}/man1/*
+%{_sysconfdir}/%{name}/*
+%{_mandir}/man1/%{name}*
 
 %files -n dvifb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dvifb
+%{_mandir}/man1/dvifb*
 
 %files -n dvisvga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dvisvga
+%{_mandir}/man1/dvisvga*
 
 %files -n dvilx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{x11bindir}/dvilx
+%{x11mandir}/man1/dvilx*
