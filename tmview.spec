@@ -40,7 +40,7 @@ Summary(pl):	Przegl±darka plików DVI - wersja pod framebuffer
 Group:		Applications
 Group(de):	Applikationen
 Group(pl):	Aplikacje
-Requires:	%{name}-%{version}
+Requires:	%{name} = %{version}
 
 %description -n dvifb
 DVI files viewer - framebuffer version
@@ -54,7 +54,7 @@ Summary(pl):	Przegl±darka plików DVI - wersja dla SVGAlib
 Group:		Applications
 Group(de):	Applikationen
 Group(pl):	Aplikacje
-Requires:	%{name}-%{version}
+Requires:	%{name} = %{version}
 
 %description -n dvisvga
 DVI files viewer - SVGAlib version.
@@ -68,7 +68,7 @@ Summary(pl):	Przegl±darka plików DVI - wersja dla X Window System
 Group:		Applications
 Group(de):	Applikationen
 Group(pl):	Aplikacje
-Requires:	%{name}-%{version}
+Requires:	%{name} = %{version}
 
 %description -n dvilx
 DVI files viewer - X11 version.
