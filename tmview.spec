@@ -117,4 +117,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n dvilx
 %defattr(644,root,root,755)
-%{x11bindir}/dvilx
+%attr(755,root,root) %{x11bindir}/dvilx
