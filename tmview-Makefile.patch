@@ -1,16 +1,20 @@
 diff -Nur tmview.orig/MakeFb tmview/MakeFb
 --- tmview.orig/MakeFb	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeFb	Fri Nov  9 19:44:06 2001
-@@ -9,7 +9,7 @@
++++ tmview/MakeFb	Fri Nov  9 19:48:38 2001
+@@ -8,8 +8,10 @@
+ LIBS= -lm	 
  #LIBS= -lkpathsea -lm       # when kpathsea is to be used	 
  
- LL=gcc   -L /usr/lib
+-LL=gcc   -L /usr/lib
 -CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC)
-+CC=gcc -c -Wall -I$(SRC) -I$(SSRC)
++LL=gcc
++CC=gcc -c
++CFLAGS=-O2 -g -Wall
++INCLUDES=-I$(SRC) -I$(SSRC)
  
  OBJDEPEND=$(SSRC)defsfb.h $(SRC)defsgen.h $(SRC)subs.c
  
-@@ -34,46 +34,46 @@
+@@ -34,46 +36,46 @@
  
  
  $(OBJ)tmview.o:  $(SRC)tmview.c $(SRC)help.h $(OBJDEPEND)
@@ -50,7 +54,8 @@ diff -Nur tmview.orig/MakeFb tmview/MakeFb
 +	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)colors.c -o $(OBJ)colors.o
  
  $(OBJ)writefb.o:  $(SSRC)writefb.c $(OBJDEPEND)
- 	$(CC) $(SSRC)writefb.c -o $(OBJ)writefb.o
+-	$(CC) $(SSRC)writefb.c -o $(OBJ)writefb.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SSRC)writefb.c -o $(OBJ)writefb.o
  
  $(OBJ)subs.o:  $(SRC)subs.c $(OBJDEPEND)
 -	$(CC) $(SRC)subs.c -o $(OBJ)subs.o
