@@ -1,18 +1,20 @@
---- tmview/MakeSVGA.orig	Sat Jun  5 23:29:28 1999
-+++ tmview/MakeSVGA	Tue Nov 23 21:05:20 1999
-@@ -8,8 +8,8 @@
- OBJ=./src/svga.
+diff -Nur tmview.orig/MakeFb tmview/MakeFb
+--- tmview.orig/MakeFb	Sun Mar  4 14:57:22 2001
++++ tmview/MakeFb	Fri Nov  9 19:40:06 2001
+@@ -5,8 +5,8 @@
+ SSRC=./fb/
+ OBJ=./src/fb.
  
- 
--LIBS= -lvgagl -lvga -lm	 
--#LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
-+#LIBS= -lvgagl -lvga -lm	 
-+LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
- 
+-LIBS= -lm	 
+-#LIBS= -lkpathsea -lm       # when kpathsea is to be used	 
++#LIBS= -lm	 
++LIBS= -lkpathsea -lm       # when kpathsea is to be used	 
  
  LL=gcc   -L /usr/lib
---- tmview/MakeLX.orig	Sat Jun  5 23:29:28 1999
-+++ tmview/MakeLX	Tue Nov 23 21:06:22 1999
+ CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC)
+diff -Nur tmview.orig/MakeLX tmview/MakeLX
+--- tmview.orig/MakeLX	Sun Mar  4 14:57:22 2001
++++ tmview/MakeLX	Fri Nov  9 19:38:08 2001
 @@ -7,9 +7,9 @@
  OBJ=./src/lX.
  
@@ -24,10 +26,24 @@
 +#LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
  
  LL=gcc
- CC=gcc -c -O2 -g -Wstrict-prototypes -I$(SRC) -I$(SSRC) 
-diff -Nru tmview.orig/lX/defslx.h tmview/lX/defslx.h
---- tmview.orig/lX/defslx.h	Sat May  5 10:33:43 2001
-+++ tmview/lX/defslx.h	Sat May  5 10:39:19 2001
+ CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC) 
+diff -Nur tmview.orig/MakeSVGA tmview/MakeSVGA
+--- tmview.orig/MakeSVGA	Sun Mar  4 14:57:22 2001
++++ tmview/MakeSVGA	Fri Nov  9 19:38:08 2001
+@@ -8,8 +8,8 @@
+ OBJ=./src/svga.
+ 
+ 
+-LIBS= -lvgagl -lvga -lm	 
+-#LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
++#LIBS= -lvgagl -lvga -lm	 
++LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
+ 
+ 
+ LL=gcc   -L /usr/lib
+diff -Nur tmview.orig/lX/defslx.h tmview/lX/defslx.h
+--- tmview.orig/lX/defslx.h	Sun Mar  4 14:57:22 2001
++++ tmview/lX/defslx.h	Fri Nov  9 19:38:08 2001
 @@ -82,7 +82,7 @@
  /* However, if kpse_init_prog is defined  to have 4 arguments ("P4H"),*/
  /* its KPATHSEANEWSTYLE.                                              */ 
@@ -37,9 +53,9 @@ diff -Nru tmview.orig/lX/defslx.h tmview/lX/defslx.h
  #ifdef KPATHSEA
  #define KPATHMODE NULL    /* put f.e. "cx" here, to consist on cx fonts */
  #define KPATHMAKE 1       /* put 0 here, to disable running MakeTeXPK   */
-diff -Nru tmview.orig/src/tmview.c tmview/src/tmview.c
---- tmview.orig/src/tmview.c	Sat May  5 10:33:43 2001
-+++ tmview/src/tmview.c	Sat May  5 10:40:38 2001
+diff -Nur tmview.orig/src/tmview.c tmview/src/tmview.c
+--- tmview.orig/src/tmview.c	Sun Mar  4 14:57:22 2001
++++ tmview/src/tmview.c	Fri Nov  9 19:38:08 2001
 @@ -2525,7 +2525,7 @@
  
  #ifdef KPATHSEAOLDSTYLE
@@ -49,9 +65,9 @@ diff -Nru tmview.orig/src/tmview.c tmview/src/tmview.c
    kpse_init_prog ("TMVIEW", xres,KPATHMODE,KPATHMAKE,KPATHDEFF);
    pfprot("ok\n");
  #endif
-diff -Nru tmview.orig/svga/defssvga.h tmview/svga/defssvga.h
---- tmview.orig/svga/defssvga.h	Sat May  5 10:33:43 2001
-+++ tmview/svga/defssvga.h	Sat May  5 10:41:24 2001
+diff -Nur tmview.orig/svga/defssvga.h tmview/svga/defssvga.h
+--- tmview.orig/svga/defssvga.h	Sun Mar  4 14:57:22 2001
++++ tmview/svga/defssvga.h	Fri Nov  9 19:38:08 2001
 @@ -116,10 +116,10 @@
  /* Thus, running once in a while "./missfont.log" manualy seems  more */
  /* "comfortable" to me. For svgalib>=1.3.0 and  kernel=>2.0 there     */
