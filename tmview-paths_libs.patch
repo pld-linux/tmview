@@ -1,6 +1,6 @@
 diff -Nur tmview.orig/MakeFb tmview/MakeFb
 --- tmview.orig/MakeFb	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeFb	Fri Nov  9 19:40:06 2001
++++ tmview/MakeFb	Sun Nov 11 15:12:14 2001
 @@ -5,8 +5,8 @@
  SSRC=./fb/
  OBJ=./src/fb.
@@ -14,7 +14,7 @@ diff -Nur tmview.orig/MakeFb tmview/MakeFb
  CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC)
 diff -Nur tmview.orig/MakeLX tmview/MakeLX
 --- tmview.orig/MakeLX	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeLX	Fri Nov  9 19:38:08 2001
++++ tmview/MakeLX	Sun Nov 11 15:12:14 2001
 @@ -7,9 +7,9 @@
  OBJ=./src/lX.
  
@@ -29,7 +29,7 @@ diff -Nur tmview.orig/MakeLX tmview/MakeLX
  CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC) 
 diff -Nur tmview.orig/MakeSVGA tmview/MakeSVGA
 --- tmview.orig/MakeSVGA	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeSVGA	Fri Nov  9 19:38:08 2001
++++ tmview/MakeSVGA	Sun Nov 11 15:12:14 2001
 @@ -8,8 +8,8 @@
  OBJ=./src/svga.
  
@@ -41,9 +41,21 @@ diff -Nur tmview.orig/MakeSVGA tmview/MakeSVGA
  
  
  LL=gcc   -L /usr/lib
+diff -Nur tmview.orig/fb/defsfb.h tmview/fb/defsfb.h
+--- tmview.orig/fb/defsfb.h	Sun Mar  4 14:57:22 2001
++++ tmview/fb/defsfb.h	Sun Nov 11 15:13:05 2001
+@@ -80,7 +80,7 @@
+ /* its KPATHSEANEWSTYLE.                                              */ 
+ /*                                                                    */ 
+ /* Running MakeTeXPK by kpathsea within dvifb may be disabled below.  */
+-/* #define KPATHSEA */
++#define KPATHSEA
+ #ifdef KPATHSEA
+ #define KPATHMODE NULL    /* put f.e. "cx" here, to consist on cx fonts */
+ #define KPATHMAKE 1       /* put 0 here, to disable MakeTeXPK           */
 diff -Nur tmview.orig/lX/defslx.h tmview/lX/defslx.h
 --- tmview.orig/lX/defslx.h	Sun Mar  4 14:57:22 2001
-+++ tmview/lX/defslx.h	Fri Nov  9 19:38:08 2001
++++ tmview/lX/defslx.h	Sun Nov 11 15:12:14 2001
 @@ -82,7 +82,7 @@
  /* However, if kpse_init_prog is defined  to have 4 arguments ("P4H"),*/
  /* its KPATHSEANEWSTYLE.                                              */ 
@@ -55,7 +67,7 @@ diff -Nur tmview.orig/lX/defslx.h tmview/lX/defslx.h
  #define KPATHMAKE 1       /* put 0 here, to disable running MakeTeXPK   */
 diff -Nur tmview.orig/src/tmview.c tmview/src/tmview.c
 --- tmview.orig/src/tmview.c	Sun Mar  4 14:57:22 2001
-+++ tmview/src/tmview.c	Fri Nov  9 19:38:08 2001
++++ tmview/src/tmview.c	Sun Nov 11 15:12:14 2001
 @@ -2525,7 +2525,7 @@
  
  #ifdef KPATHSEAOLDSTYLE
@@ -67,7 +79,7 @@ diff -Nur tmview.orig/src/tmview.c tmview/src/tmview.c
  #endif
 diff -Nur tmview.orig/svga/defssvga.h tmview/svga/defssvga.h
 --- tmview.orig/svga/defssvga.h	Sun Mar  4 14:57:22 2001
-+++ tmview/svga/defssvga.h	Fri Nov  9 19:38:08 2001
++++ tmview/svga/defssvga.h	Sun Nov 11 15:12:14 2001
 @@ -116,10 +116,10 @@
  /* Thus, running once in a while "./missfont.log" manualy seems  more */
  /* "comfortable" to me. For svgalib>=1.3.0 and  kernel=>2.0 there     */
