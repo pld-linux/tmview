@@ -6,7 +6,7 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	7
+Release:	8
 License:	distributable
 Group:		Applications/Publishing
 Source0:	ftp://ftp.gust.org.pl/TeX/dviware/tmview/tmv%{version}.tgz
@@ -16,6 +16,7 @@ Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
 Patch2:		%{name}-Makefile.patch
 Patch3:		%{name}-resolution.patch
+Patch4:		%{name}-gcc3.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kpathsea-devel
 %ifarch %{ix86} alpha
@@ -100,13 +101,14 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
-%{__make} -f MakeFb CFLAGS="%{rpmcflags}"
-%{__make} -f MakeLX CFLAGS="%{rpmcflags}"
+%{__make} -f MakeFb CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
+%{__make} -f MakeLX CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
 %ifarch %{ix86} alpha
 %if %{?_without_svga:0}%{!?_without_svga:1}
-%{__make} -f MakeSVGA CFLAGS="%{rpmcflags}"
+%{__make} -f MakeSVGA CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
 %endif
 %endif
 
