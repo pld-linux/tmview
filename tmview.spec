@@ -10,6 +10,7 @@ Release:	7
 License:	distributable
 Group:		Applications/Publishing
 Source0:	ftp://ftp.gust.org.pl/TeX/dviware/tmview/tmv%{version}.tgz
+# Source0-md5:	c1d43526a3bc32a684017ffd9f8040be
 Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
