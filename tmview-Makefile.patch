@@ -1,6 +1,15 @@
 diff -Nur tmview.orig/MakeFb tmview/MakeFb
 --- tmview.orig/MakeFb	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeFb	Fri Nov  9 19:36:01 2001
++++ tmview/MakeFb	Fri Nov  9 19:44:06 2001
+@@ -9,7 +9,7 @@
+ #LIBS= -lkpathsea -lm       # when kpathsea is to be used	 
+ 
+ LL=gcc   -L /usr/lib
+-CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC)
++CC=gcc -c -Wall -I$(SRC) -I$(SSRC)
+ 
+ OBJDEPEND=$(SSRC)defsfb.h $(SRC)defsgen.h $(SRC)subs.c
+ 
 @@ -34,46 +34,46 @@
  
  
@@ -63,7 +72,7 @@ diff -Nur tmview.orig/MakeFb tmview/MakeFb
  
 diff -Nur tmview.orig/MakeLX tmview/MakeLX
 --- tmview.orig/MakeLX	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeLX	Fri Nov  9 19:32:59 2001
++++ tmview/MakeLX	Fri Nov  9 19:43:31 2001
 @@ -12,7 +12,9 @@
  LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
  
@@ -138,7 +147,7 @@ diff -Nur tmview.orig/MakeLX tmview/MakeLX
  
 diff -Nur tmview.orig/MakeSVGA tmview/MakeSVGA
 --- tmview.orig/MakeSVGA	Sun Mar  4 14:57:22 2001
-+++ tmview/MakeSVGA	Fri Nov  9 19:32:59 2001
++++ tmview/MakeSVGA	Fri Nov  9 19:43:31 2001
 @@ -13,7 +13,9 @@
  
  
