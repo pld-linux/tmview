@@ -91,10 +91,10 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %patch0 -p1
 
 %build
-%{__make} -f MakeFb CC="%{__cc} -c %{rpmcflags}"
-%{__make} -f MakeLX CC="%{__cc} -c %{rpmcflags}"
+%{__make} -f MakeFb CFLAGS="%{rpmcflags}"
+%{__make} -f MakeLX CFLAGS="%{rpmcflags}"
 %ifnarch sparc sparc64
-%{__make} -f MakeSVGA CC="%{__cc} -c %{rpmcflags}"
+%{__make} -f MakeSVGA CFLAGS="%{rpmcflags}"
 %endif
 
 %install
