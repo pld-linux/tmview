@@ -2,8 +2,8 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	4
-License:	distributable
+Release:	5
+License:	Distributable
 Group:		Applications/Publishing
 Source0:	ftp://ftp.gust.org.pl:/TeX/dviware/tmview/tmv%{version}.tgz
 Source1:	%{name}.conf
@@ -11,7 +11,7 @@ Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
 Patch2:		%{name}-Makefile.patch
 Patch3:		%{name}-resolution.patch
-%ifnarch sparc sparc64
+%ifnarch sparc sparc64 ppc
 BuildRequires:	svgalib-devel
 %endif
 BuildRequires:	XFree86-devel
@@ -101,7 +101,7 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %build
 %{__make} -f MakeFb CFLAGS="%{rpmcflags}"
 %{__make} -f MakeLX CFLAGS="%{rpmcflags}"
-%ifnarch sparc sparc64
+%ifnarch sparc sparc64 ppc
 %{__make} -f MakeSVGA CFLAGS="%{rpmcflags}"
 %endif
 
@@ -143,7 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/dvifb
 %{_mandir}/man1/dvifb*
 
-%ifnarch sparc sparc64
+%ifnarch sparc sparc64 ppc
 %files -n dvisvga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dvisvga
