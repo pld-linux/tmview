@@ -2,7 +2,7 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/Publishing
 Group(cs):	Aplikace/Publikování
