@@ -1,7 +1,71 @@
---- tmview/MakeLX~	Sat May  5 17:59:05 2001
-+++ tmview/MakeLX	Sat May  5 18:01:09 2001
+diff -Nur tmview.orig/MakeFb tmview/MakeFb
+--- tmview.orig/MakeFb	Sun Mar  4 14:57:22 2001
++++ tmview/MakeFb	Fri Nov  9 19:36:01 2001
+@@ -34,46 +34,46 @@
+ 
+ 
+ $(OBJ)tmview.o:  $(SRC)tmview.c $(SRC)help.h $(OBJDEPEND)
+-	$(CC) $(SRC)tmview.c -o $(OBJ)tmview.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)tmview.c -o $(OBJ)tmview.o
+ 
+ $(OBJ)readdvi.o:  $(SRC)readdvi.c $(OBJDEPEND)
+-	$(CC) $(SRC)readdvi.c -o $(OBJ)readdvi.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)readdvi.c -o $(OBJ)readdvi.o
+ 
+ $(OBJ)readpk.o:  $(SRC)readpk.c $(OBJDEPEND)
+-	$(CC) $(SRC)readpk.c -o $(OBJ)readpk.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)readpk.c -o $(OBJ)readpk.o
+ 
+ $(OBJ)readvf.o:  $(SRC)readvf.c $(OBJDEPEND)
+-	$(CC) $(SRC)readvf.c -o $(OBJ)readvf.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)readvf.c -o $(OBJ)readvf.o
+ 
+ $(OBJ)readtfm.o:  $(SRC)readtfm.c $(OBJDEPEND)
+-	$(CC) $(SRC)readtfm.c -o $(OBJ)readtfm.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)readtfm.c -o $(OBJ)readtfm.o
+ 
+ $(OBJ)drawit.o:  $(SRC)drawit.c $(OBJDEPEND)
+-	$(CC) $(SRC)drawit.c -o $(OBJ)drawit.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)drawit.c -o $(OBJ)drawit.o
+ 
+ $(OBJ)halfhyp.o:  $(SRC)halfhyp.c $(OBJDEPEND)
+-	$(CC) $(SRC)halfhyp.c -o $(OBJ)halfhyp.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)halfhyp.c -o $(OBJ)halfhyp.o
+ 
+ $(OBJ)epsfile.o:  $(SRC)epsfile.c $(OBJDEPEND)
+-	$(CC) $(SRC)epsfile.c -o $(OBJ)epsfile.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)epsfile.c -o $(OBJ)epsfile.o
+ 
+ $(OBJ)colors.o:  $(SRC)colors.c $(OBJDEPEND)
+-	$(CC) $(SRC)colors.c -o $(OBJ)colors.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)colors.c -o $(OBJ)colors.o
+ 
+ $(OBJ)writefb.o:  $(SSRC)writefb.c $(OBJDEPEND)
+ 	$(CC) $(SSRC)writefb.c -o $(OBJ)writefb.o
+ 
+ $(OBJ)subs.o:  $(SRC)subs.c $(OBJDEPEND)
+-	$(CC) $(SRC)subs.c -o $(OBJ)subs.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)subs.c -o $(OBJ)subs.o
+ 
+ $(OBJ)bookmks.o:  $(SRC)bookmks.c $(OBJDEPEND)
+-	$(CC) $(SRC)bookmks.c -o $(OBJ)bookmks.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)bookmks.c -o $(OBJ)bookmks.o
+ 
+ $(OBJ)rwconf.o:  $(SRC)rwconf.c $(OBJDEPEND)
+-	$(CC) $(SRC)rwconf.c -o $(OBJ)rwconf.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)rwconf.c -o $(OBJ)rwconf.o
+ 
+ $(OBJ)globals.o:  $(SRC)globals.c $(OBJDEPEND)
+-	$(CC) $(SRC)globals.c -o $(OBJ)globals.o
++	$(CC) $(CFLAGS) $(INCLUDES) $(SRC)globals.c -o $(OBJ)globals.o
+ clean:
+ 	rm -f $(OBJ)*.o
+ 
+diff -Nur tmview.orig/MakeLX tmview/MakeLX
+--- tmview.orig/MakeLX	Sun Mar  4 14:57:22 2001
++++ tmview/MakeLX	Fri Nov  9 19:32:59 2001
 @@ -12,7 +12,9 @@
- #LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
+ LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
  
  LL=gcc
 -CC=gcc -c -O2 -g -Wall -I$(SRC) -I$(SSRC) 
@@ -72,8 +136,9 @@
  clean:
  	rm -f $(OBJ)*.o
  
---- tmview/MakeSVGA~	Sat May  5 17:59:05 2001
-+++ tmview/MakeSVGA	Sat May  5 18:03:49 2001
+diff -Nur tmview.orig/MakeSVGA tmview/MakeSVGA
+--- tmview.orig/MakeSVGA	Sun Mar  4 14:57:22 2001
++++ tmview/MakeSVGA	Fri Nov  9 19:32:59 2001
 @@ -13,7 +13,9 @@
  
  
