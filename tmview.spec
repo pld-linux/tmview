@@ -1,20 +1,20 @@
 Summary:	A dvi viewer for SVGAlib
+Summary(cs):	Prohlí¾eè souborù DVI pro knihovnu SVGAlib
+Summary(pl):	Przegl±darka plików dvi dla SVGAlib
 Name:		tmview
 Version:	0103
 Release:	1
-URL:		ftp://sunsite.unc.edu/pub/Linux/apps/tex/dvi/
-Source0:	tmv%{version}.tgz
-Patch0:		%{name}-paths_libs.patch
+License:	GPL
 Group:		Applications/Publishing
 Group(cs):	Aplikace/Publikování
 Group(de):	Applikationen/Publizieren
 Group(pl):	Aplikacje/Publikowanie
-License:	GPL
+Source0:	ftp://sunsite.unc.edu/pub/Linux/apps/tex/dvi/tmv%{version}.tgz
+Patch0:		%{name}-paths_libs.patch
+Patch1:		%{name}-Makefile.patch
+BuildRequires:	kpathsea-devel
+BuildRequires:	svgalib-devel >= 1.9.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Summary(cs):	Prohlí¾eè souborù DVI pro knihovnu SVGAlib
-Summary(pl):	Przegl±darka plików dvi dla SVGAlib
-Requires: svgalib >= 1.9.2
-BuildRequires: kpathsea-devel
 
 %description
 tmview is a screen-previewer for .dvi-files compiled by TeX. It let's
@@ -51,30 +51,31 @@ zastêpowania fontów.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
 
 %build
-%{__make} -f MakeSVGA OPTFLAGS="$RPM_OPT_FLAGS"
-%{__make} -f MakeLX OPTFLAGS="$RPM_OPT_FLAGS"
+%{__make} -f MakeSVGA CFLAGS="%{rpmcflags}"
+%{__make} -f MakeLX CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
 
-mkdir -p $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
-install -s dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
-install -s dvilx.linux $RPM_BUILD_ROOT%{_bindir}/dvilx
+install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
+install dvilx.linux $RPM_BUILD_ROOT%{_bindir}/dvilx
 install doc/tmview.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
 ln -s dvisvga $RPM_BUILD_ROOT%{_bindir}/tmview
-ln -s tmview.1 $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
-ln -s tmview.1 $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
+echo ".so tmview.1" > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
+echo ".so tmview.1" > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
+
+gzip -9nf CHANGES IAFA-PACKAGE README 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES IAFA-PACKAGE README doc/tmview.dvi doc/tmview.tex
-
-%attr(755,root,root) %{_bindir}/dvisvga
-%attr(755,root,root) %{_bindir}/dvilx
-%attr(755,root,root) %{_bindir}/tmview
-%attr(644,root, man) %{_mandir}/man1/*
+%doc *.gz
+%attr(755,root,root) %{_bindir}/*
+%{_mandir}/man1/*
