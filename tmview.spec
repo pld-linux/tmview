@@ -1,6 +1,5 @@
 
 %define x11bindir /usr/X11R6/bin
-%define x11mandir /usr/X11R6/share/man
 
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
@@ -94,13 +93,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 	$RPM_BUILD_ROOT%{_bindir} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
-	$RPM_BUILD_ROOT%{x11bindir} \
-	$RPM_BUILD_ROOT%{x11mandir}/man1
+	$RPM_BUILD_ROOT%{x11bindir}
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
 echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
 echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
-echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{x11mandir}/man1/dvilx.1
+echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
@@ -132,4 +130,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n dvilx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{x11bindir}/dvilx
-%{x11mandir}/man1/dvilx*
+%{_mandir}/man1/dvilx*
