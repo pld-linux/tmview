@@ -1,0 +1,256 @@
+--- tmview/fb/writefb.c.orig	Sun Mar  4 14:57:22 2001
++++ tmview/fb/writefb.c	Fri Feb  8 00:11:12 2002
+@@ -3,6 +3,10 @@
+ /* This program may be used without any warranty. It may be modified and */
+ /* distributed without any restrictions.                                 */
+ 
++/* NOTE >>> this file contains some hackes addressing virtual resolution */
++/* to be different to the visible resolution. However, this sfeature has */
++/* not been tested yet.                                                  */
++
+ #include "../src/defs.h"
+ 
+ #include <termios.h>
+@@ -16,12 +20,26 @@
+ #include <linux/vt.h>
+ #include <linux/kd.h> 
+ 
++/* This code in principle also addresses the case in which the */
++/* virtual and visible resolutions are different. However, I   */
++/* cannot test this feature since my graphics adaptor doesn't  */
++/* support such fancy stuff. By default, tmview exits whenever */
++/* virtual and visual resolution differ. If you want to operate*/
++/* a MATROX card with Matrox framebuffer driver in 800x600 mode*/
++/* you will notice that this driver resists in a virtual width */
++/* of 1024 pixels. You then may enable the below TRYVIRTUAL and*/
++/* test my code ... which may or may not do its job.           */
++#define TRYVIRTUAL  
++
++
+ /* framebuffer globals  */  
+ static uchar *thefb=NULL;
+ static long thefblen;
+-static int thefbxdim;
+-static int thefbydim;
+-static int thefbbyteswidth;
++static int thefbxdim;       /* refers to visual resolution */
++static int thefbydim;       /* refers to visual resolution */
++static int thefbbyteswidth; /* refers to virtual resolution */
++static int thefbxoff=0;     /* virtual/visual offset */
++static int thefbyoff=0;     /* virtual/visual offset */
+ static int thefbfd=-1;
+ static struct fb_cmap origpalette={0,0,NULL,NULL,NULL,NULL};
+ static unsigned short origreds[256];
+@@ -39,6 +57,8 @@
+ 
+ /* globals used by my painting stuff */  
+ static uchar *offscreen=NULL, *ptorigin;
++static int offscreenbyteswidth;
++static long offscreenlen;
+ static int ofscx1, ofscy1, ofscx2, ofscy2;
+ static int fontw, fonth, fonts;
+ 
+@@ -190,13 +210,23 @@
+ }
+ 
+ static void vtaquire(int n) {  /* come back */
++   int h;
++   uchar *src, *dst;   
+ #ifdef DEBUGFB
+   pfprot("(vtaquire)");
+ #endif
+   ioctl(thevtfd, VT_RELDISP, VT_ACKACQ);
+   if(offscreen!=NULL && thefb!=NULL) {
+-     memcpy(thefb,offscreen,thefblen);
+-     setpalette();
++    for(
++      src=offscreen,   
++      dst=thefb+thefbbyteswidth*thefbyoff+thefbxoff,
++      h=truevgaydim;
++      h>0;
++      h--,
++      src+=offscreenbyteswidth,
++      dst+=thefbbyteswidth)
++        memcpy(dst,src,truevgaxdim);
++    setpalette();
+   }
+   pendingswitch=0;    /* discard a pending request ... */
+   donotupdate=0;      /* drawwings welcome again */
+@@ -207,28 +237,28 @@
+    int h,w;
+    uchar *src, *dst; 
+  
++   if(donotupdate) return; /* vt is switched away, dont draw on screen */
++   updateinprogress=1;     /* indicate that there are drawings goning on */
++
+    if(x1<0) x1=0; if(y1<0) y1=0;
+    if(x2>truevgaxdim-1) x2=truevgaxdim-1;
+    if(y2>truevgaydim-1) y2=truevgaydim-1;
+    if(x2<x1 || y2<y1) return; 
+ 
+-   if(donotupdate) return; /* vt is switched away, dont draw on screen */
+-   updateinprogress=1;     /* indicate that there are drawings goning on */
+-
+ #ifdef DEBUGFB
+    pfprot("(myupdate");
+ #endif
+    for(
+      w=x2-x1+1,
+      h=y2-y1+1,
+-     src=offscreen+thefbbyteswidth*y1+x1,   
+-     dst=thefb+thefbbyteswidth*y1+x1;
++     src=offscreen+offscreenbyteswidth*y1+x1,   
++     dst=thefb+thefbbyteswidth*(y1+thefbyoff)+x1+thefbxoff;
+      h>0;
+      h--,
+-     src+=thefbbyteswidth,
++     src+=offscreenbyteswidth,
+      dst+=thefbbyteswidth)
+        memcpy(dst,src,w);
+-
++   
+    updateinprogress=0;     /* all drawings done so far */
+    if(pendingswitch){      /* aha: console switch requested while we were busy */
+      pendingswitch=0;    
+@@ -293,15 +323,14 @@
+   /* ... and any other terminating signals   */
+   installcatch();  
+ 
+-  /* memorymap framebuffer */
+-  /* Open problem: any help for this one?                 */
+-  /* I want the framebuffer to be owned by root and to    */
+-  /* have crw--w--w- flags. So nobody can read my screen. */ 
+-  /* Now tmview will only write on the device, so tmview  */
+-  /* should open it write-only. Thus tmview would not     */
+-  /* require root provileges. But when openeing write-only*/
+-  /* I always get an error when memory-mapping the device.*/
+-  /* Why?                                                 */
++  /* memory-map framebuffer: open problem: any help ?      */
++  /* I want the framebuffer to be owned by root and to     */
++  /* have crw--w--w- flags. So nobody can read my screen.  */ 
++  /* Now tmview will only write on the device, so tmview   */
++  /* should open it write-only. Thus tmview would not      */
++  /* require root provileges. But when opening write-only  */
++  /* I always get an error when memory-mapping the device. */
++  /* Why?                                                  */
+   pfprot("f");
+   str=getenv("FRAMEBUFFER");
+   if(str==NULL) str=THEFBDEV;/* is this a security problem? */
+@@ -314,17 +343,35 @@
+   pfprot("(%s)",fixinfo.id);
+   if(0!=ioctl(thefbfd,FBIOGET_VSCREENINFO, &varinfo))
+     vgaerror("cannot get var info");
+-  if(varinfo.xres!= varinfo.xres_virtual || varinfo.yres!= varinfo.yres_virtual)
+-    vgaerror("virtual res doesn't equal physical res");
+   if(fixinfo.type!=FB_TYPE_PACKED_PIXELS || fixinfo.visual!= FB_VISUAL_PSEUDOCOLOR
+      || varinfo.bits_per_pixel != 8)
+     vgaerror("pseudocolor, packed-pixels, 8bpp required\n     ... try fbset utility?");
+-  thefbxdim=varinfo.xres;
+-  thefbydim=varinfo.yres;
+-  pfprot("(%dx%d)",thefbxdim,thefbydim);
+-  thefbbyteswidth=varinfo.xres;
+-  thefblen=((((long)thefbbyteswidth * (long)varinfo.yres * varinfo.bits_per_pixel+7)/8) 
+-             + 0x0fffL) & ~0x0fffL;
++#if 0  /* pseudo test code for visrtual stuff */
++  varinfo.xres=640;
++  varinfo.yres=400;
++  varinfo.xoffset=10;
++  varinfo.yoffset=50;
++#endif
++#ifndef TRYVIRTUAL
++  if(varinfo.xres!= varinfo.xres_virtual || varinfo.yres!= varinfo.yres_virtual)
++    vgaerror("virtual res doesn't equal physical res");
++  if(varinfo.xoffset!=0 || varinfo.yoffset!= 0)
++    vgaerror("nonzero offset");
++#endif
++  if(varinfo.xoffset<0 || varinfo.yoffset<0)
++    vgaerror("negative offset");
++  if(varinfo.xoffset+varinfo.xres>varinfo.xres_virtual ||
++     varinfo.yoffset+varinfo.yres>varinfo.yres_virtual) 
++    vgaerror("visual screen plus offset exceeds virtual screen");
++  thefbxdim= varinfo.xres;
++  thefbydim= varinfo.yres;
++  thefbxoff= varinfo.xoffset;
++  thefbyoff= varinfo.yoffset;
++  pfprot("(vis: %dx%d)",thefbxdim,thefbydim);
++  pfprot("(vir: %dx%d off: %d.%d)",varinfo.xres_virtual,varinfo.yres_virtual,thefbxoff,thefbyoff);
++  thefbbyteswidth=varinfo.xres_virtual;    
++  thefblen=(((long)varinfo.xres_virtual * (long)varinfo.yres_virtual 
++     * ((varinfo.bits_per_pixel+7)/8))+ 0x0fffL) & ~0x0fffL; /* ??? */
+   if(thefblen>fixinfo.smem_len)
+     pfprot("warning: writefb: mapping more than there is?\n");
+   pfprot("m");
+@@ -363,8 +410,10 @@
+     vgaerror("\nerror: writefb: readpalette\n");
+   }
+ 
+-  /* accocaletmviews offscreenbuffer */
+-  allocmem(&offscreen,thefblen);
++  /* accocale tmviews offscreenbuffer */
++  offscreenbyteswidth=(thefbxdim + 0x0007L) & ~0x0007;
++  offscreenlen=((long)offscreenbyteswidth)*((long)thefbydim);
++  allocmem(&offscreen,offscreenlen);
+ 
+   /* open mouse deveice */
+ #ifdef HASMOUSE
+@@ -425,7 +474,7 @@
+   vgaydim=truevgaydim=thefbydim;
+   ptorigin=offscreen;
+   #define PTDELTAH (1)
+-  #define PTDELTAV (thefbbyteswidth)
++  #define PTDELTAV (offscreenbyteswidth)
+   ofscx1=0; ofscy1=0; ofscx2=vgaxdim-1; ofscy2=vgaydim-1; 
+   setpalette();
+   preparefont();
+@@ -452,8 +501,8 @@
+       dst=offscreen;
+       i>0;
+       i--,
+-      src+=thefbbyteswidth,
+-      dst+=thefbbyteswidth)
++      src+=offscreenbyteswidth,
++      dst+=offscreenbyteswidth)
+         memmove(dst,src,vgaxdim-dx);
+   else
+     for(i=vgaydim,
+@@ -461,8 +510,8 @@
+       dst=offscreen+dx;
+       i>0;
+       i--,
+-      src+=thefbbyteswidth,
+-      dst+=thefbbyteswidth)
++      src+=offscreenbyteswidth,
++      dst+=offscreenbyteswidth)
+         memmove(dst,src,vgaxdim-dx);
+ }   
+ 
+@@ -473,22 +522,22 @@
+   if(dy<0) 
+     for(
+       i=vgaydim+dy,
+-      src=offscreen+thefbbyteswidth*(-dy),   
++      src=offscreen+offscreenbyteswidth*(-dy),   
+       dst=offscreen;
+       i>0;
+       i--,
+-      src+=thefbbyteswidth,
+-      dst+=thefbbyteswidth)
++      src+=offscreenbyteswidth,
++      dst+=offscreenbyteswidth)
+         memcpy(dst,src,vgaxdim);
+   else /* dy>0 */
+     for(
+       i=vgaydim-dy,
+-      src=offscreen+thefbbyteswidth*(vgaydim-dy-1),   
+-      dst=offscreen+thefbbyteswidth*(vgaydim-1);
++      src=offscreen+offscreenbyteswidth*(vgaydim-dy-1),   
++      dst=offscreen+offscreenbyteswidth*(vgaydim-1);
+       i>0;
+       i--,
+-      src-=thefbbyteswidth,
+-      dst-=thefbbyteswidth)
++      src-=offscreenbyteswidth,
++      dst-=offscreenbyteswidth)
+         memcpy(dst,src,vgaxdim);
+ }   
+ 
