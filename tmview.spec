@@ -10,7 +10,9 @@ Group(pl):	Aplikacje
 Source0:	http://www.ibiblio.org/pub/Linux/apps/tex/dvi/%{name}-%{version}.tar.gz
 Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
+%ifnarch sparc sparc64
 BuildRequires:	svgalib-devel
+%endif
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
