@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_svga - without SVGAlib support
+%bcond_without	svga		# without SVGAlib support
 #
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
@@ -21,7 +21,7 @@ Patch5:		%{name}-home_etc.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kpathsea-devel
 %ifarch %{ix86} alpha
-%{!?_without_svga:BuildRequires:	svgalib-devel}
+%{?with_svga:BuildRequires:	svgalib-devel}
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -109,7 +109,7 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %{__make} -f MakeFb CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
 %{__make} -f MakeLX CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
 %ifarch %{ix86} alpha
-%if %{?_without_svga:0}%{!?_without_svga:1}
+%if %{with svga}
 %{__make} -f MakeSVGA CFLAGS="%{rpmcflags} -DHAVE_PROTOTYPES"
 %endif
 %endif
@@ -129,7 +129,7 @@ install dvilx.linux $RPM_BUILD_ROOT%{_bindir}/dvilx
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
 
 %ifarch %{ix86} alpha
-%if %{?_without_svga:0}%{!?_without_svga:1}
+%if %{with svga}
 install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
 %endif
@@ -153,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/dvifb*
 
 %ifarch %{ix86} alpha
-%if %{?_without_svga:0}%{!?_without_svga:1}
+%if %{with svga}
 %files -n dvisvga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dvisvga
