@@ -1,6 +1,7 @@
-
+#
+# Conditional build:
 # _without_svga - without SVGAlib support
-
+#
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
@@ -8,7 +9,7 @@ Version:	0103
 Release:	6
 License:	distributable
 Group:		Applications/Publishing
-Source0:	ftp://ftp.gust.org.pl:/TeX/dviware/tmview/tmv%{version}.tgz
+Source0:	ftp://ftp.gust.org.pl/TeX/dviware/tmview/tmv%{version}.tgz
 Source1:	%{name}.conf
 Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
@@ -20,8 +21,6 @@ BuildRequires:	kpathsea-devel
 %{!?_without_svga:BuildRequires: svgalib-devel}
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		x11bindir	/usr/X11R6/bin
 
 %description
 DVI previewer for SVGAlib, framebuffer device or Xlib. Fast, offers
@@ -114,15 +113,14 @@ Przegl±darka plików DVI - wersja dla X Window System.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 	$RPM_BUILD_ROOT%{_bindir} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
-	$RPM_BUILD_ROOT%{x11bindir}
+	$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install dvifb.linux $RPM_BUILD_ROOT%{_bindir}/dvifb
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
 
-install dvilx.linux $RPM_BUILD_ROOT%{x11bindir}/dvilx
+install dvilx.linux $RPM_BUILD_ROOT%{_bindir}/dvilx
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
 
 %ifarch %{ix86} alpha
@@ -140,7 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/tmview.dvi doc/tm.ps README
-%{_sysconfdir}/%{name}/*
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}/*
 %{_mandir}/man1/%{name}*
 
 %files -n dvifb
@@ -159,5 +158,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n dvix11
 %defattr(644,root,root,755)
-%attr(755,root,root) %{x11bindir}/dvilx
+%attr(755,root,root) %{_bindir}/dvilx
 %{_mandir}/man1/dvilx*
