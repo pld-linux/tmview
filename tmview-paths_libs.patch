@@ -1,0 +1,67 @@
+--- tmview/MakeSVGA.orig	Sat Jun  5 23:29:28 1999
++++ tmview/MakeSVGA	Tue Nov 23 21:05:20 1999
+@@ -8,8 +8,8 @@
+ OBJ=./src/svga.
+ 
+ 
+-LIBS= -lvgagl -lvga -lm	 
+-#LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
++#LIBS= -lvgagl -lvga -lm	 
++LIBS= -lkpathsea -lvgagl -lvga -lm       # when kpathsea is to be used	 
+ 
+ 
+ LL=gcc   -L /usr/lib
+--- tmview/MakeLX.orig	Sat Jun  5 23:29:28 1999
++++ tmview/MakeLX	Tue Nov 23 21:06:22 1999
+@@ -7,9 +7,9 @@
+ OBJ=./src/lX.
+ 
+ #1. when kpathsea is to be used	 
+-#LIBS= -L /usr/X11R6/lib -L /usr/X11/lib -lkpathsea -lX11 -lm 
++LIBS= -L /usr/X11R6/lib -L /usr/X11/lib -lkpathsea -lX11 -lm 
+ #2. when kpathsea is not used
+-LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
++#LIBS= -L /usr/X11R6/lib -L /usr/X11/lib  -lX11 -lm        
+ 
+ LL=gcc
+ CC=gcc -c -O2 -g -Wstrict-prototypes -I$(SRC) -I$(SSRC) 
+diff -Nru tmview.orig/lX/defslx.h tmview/lX/defslx.h
+--- tmview.orig/lX/defslx.h	Sat May  5 10:33:43 2001
++++ tmview/lX/defslx.h	Sat May  5 10:39:19 2001
+@@ -82,7 +82,7 @@
+ /* However, if kpse_init_prog is defined  to have 4 arguments ("P4H"),*/
+ /* its KPATHSEANEWSTYLE.                                              */ 
+ /*                                                                    */ 
+-/* #define KPATHSEA */
++#define KPATHSEA
+ #ifdef KPATHSEA
+ #define KPATHMODE NULL    /* put f.e. "cx" here, to consist on cx fonts */
+ #define KPATHMAKE 1       /* put 0 here, to disable running MakeTeXPK   */
+diff -Nru tmview.orig/src/tmview.c tmview/src/tmview.c
+--- tmview.orig/src/tmview.c	Sat May  5 10:33:43 2001
++++ tmview/src/tmview.c	Sat May  5 10:40:38 2001
+@@ -2525,7 +2525,7 @@
+ 
+ #ifdef KPATHSEAOLDSTYLE
+   pfprot("initializing kpathsea, old style: ");
+-  kpse_set_progname (argv[0]);
++  kpse_set_program_name (argv[0],"tmview");
+   kpse_init_prog ("TMVIEW", xres,KPATHMODE,KPATHMAKE,KPATHDEFF);
+   pfprot("ok\n");
+ #endif
+diff -Nru tmview.orig/svga/defssvga.h tmview/svga/defssvga.h
+--- tmview.orig/svga/defssvga.h	Sat May  5 10:33:43 2001
++++ tmview/svga/defssvga.h	Sat May  5 10:41:24 2001
+@@ -116,10 +116,10 @@
+ /* Thus, running once in a while "./missfont.log" manualy seems  more */
+ /* "comfortable" to me. For svgalib>=1.3.0 and  kernel=>2.0 there     */
+ /* might be a solution on this topic.  See below LETSTRYBG.           */
+-/* #define KPATHSEA */
++#define KPATHSEA
+ #ifdef KPATHSEA
+ #define KPATHMODE NULL    /* put f.e. "cx" here, to consist on cx fonts */
+-#define KPATHMAKE 0       /* put 1 here, to make kpathsea run MakeTeXPK,*/
++#define KPATHMAKE 1       /* put 1 here, to make kpathsea run MakeTeXPK,*/
+ #define KPATHDEFF "cmr10" /* fallback font                              */
+ #define KPATHSEANEWSTYLE    /* new=fine for teTeX from debian(see above)*/ 
+ /*#define KPATHSEAOLDSTYLE*//* old=fine for NTeX from Slakware          */
