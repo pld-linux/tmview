@@ -89,6 +89,8 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %prep
 %setup  -q -n %{name}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__make} -f MakeFb CFLAGS="%{rpmcflags}"
