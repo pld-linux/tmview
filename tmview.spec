@@ -114,7 +114,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
-%ifnarch sparc sparc64
+%ifnarch sparc sparc64 ppc
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
 %endif
 echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
@@ -122,7 +122,7 @@ echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
 install dvifb.linux $RPM_BUILD_ROOT%{_bindir}/dvifb
-%ifnarch sparc sparc64
+%ifnarch sparc sparc64 ppc
 install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
 %endif
 install dvilx.linux $RPM_BUILD_ROOT%{x11bindir}/dvilx
