@@ -19,7 +19,7 @@ Patch3:		%{name}-resolution.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	kpathsea-devel
 %ifarch %{ix86} alpha
-%{!?_without_svga:BuildRequires: svgalib-devel}
+%{!?_without_svga:BuildRequires:	svgalib-devel}
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
