@@ -1,0 +1,63 @@
+diff -Nur tmview.orig/fb/defsfb.h tmview/fb/defsfb.h
+--- tmview.orig/fb/defsfb.h	Sun May 14 15:36:29 2000
++++ tmview/fb/defsfb.h	Thu Nov  8 11:16:19 2001
+@@ -52,8 +52,8 @@
+ 
+ /* set defaults for the option -s */
+ /* and fallback systemwide startupfile */
+-#define STARTUPFILENAME "~/.dvifb"
+-#define SYSTEMSTARTUPFILENAME "/etc/dvifb"
++#define STARTUPFILENAME "~/.dvifbrc"
++#define SYSTEMSTARTUPFILENAME "/etc/tmview/tmviewrc"
+ 
+ 
+ /* Users kept asking about using kpathsea ... so: */
+diff -Nur tmview.orig/lX/defslx.h tmview/lX/defslx.h
+--- tmview.orig/lX/defslx.h	Sun May 14 15:36:28 2000
++++ tmview/lX/defslx.h	Thu Nov  8 11:21:04 2001
+@@ -53,9 +53,9 @@
+ #define PKNAME  "@N.@Mpk"
+ 
+ /* set defaults for the option -s (startupfile)*/
+-#define STARTUPFILENAME "~/.dvilx"
++#define STARTUPFILENAME "~/.dvilxrc"
+ /* fallback systemwide startupfile */
+-#define SYSTEMSTARTUPFILENAME "/etc/dvilx"
++#define SYSTEMSTARTUPFILENAME "/etc/tmview/tmviewrc"
+ 
+ 
+ 
+diff -Nur tmview.orig/lX/defssolaris.h tmview/lX/defssolaris.h
+--- tmview.orig/lX/defssolaris.h	Sun May 14 15:36:28 2000
++++ tmview/lX/defssolaris.h	Thu Nov  8 11:20:12 2001
+@@ -51,9 +51,9 @@
+ #define PKNAME  "@N.@Mpk"
+ 
+ /* set defaults for the option -s (startupfile)*/
+-#define STARTUPFILENAME "~/.dvilx"
++#define STARTUPFILENAME "~/.dvilxrc"
+ /* fallback systemwide startupfile */
+-#define SYSTEMSTARTUPFILENAME "/etc/dvilx"
++#define SYSTEMSTARTUPFILENAME "/etc/tmview/tmviewrc"
+ 
+ 
+ /* Users kept asking about using kpathsea ... so: */
+diff -Nur tmview.orig/svga/defssvga.h tmview/svga/defssvga.h
+--- tmview.orig/svga/defssvga.h	Sun May 14 15:36:28 2000
++++ tmview/svga/defssvga.h	Thu Nov  8 11:16:54 2001
+@@ -79,11 +79,11 @@
+ /* set defaults for the option -s */
+ /* and fallback systemwide startupfile */
+ #ifndef PORTRAIT
+-#define STARTUPFILENAME "~/.dvisvga"
+-#define SYSTEMSTARTUPFILENAME "/etc/dvisvga"
++#define STARTUPFILENAME "~/.dvisvgarc"
++#define SYSTEMSTARTUPFILENAME "/etc/tmview/tmviewrc"
+ #else
+-#define STARTUPFILENAME "~/.dviport"
+-#define SYSTEMSTARTUPFILENAME "/etc/dviport"
++#define STARTUPFILENAME "~/.dviportrc"
++#define SYSTEMSTARTUPFILENAME "/etc/tmview/tmviewrc"
+ #endif
+ 
+ 
