@@ -11,11 +11,11 @@ Patch0:		%{name}-rc.patch
 Patch1:		%{name}-paths_libs.patch
 Patch2:		%{name}-Makefile.patch
 Patch3:		%{name}-resolution.patch
-%ifnarch sparc sparc64 ppc
-BuildRequires:	svgalib-devel
-%endif
 BuildRequires:	XFree86-devel
 BuildRequires:	kpathsea-devel
+%ifarch %{ix86} alpha
+BuildRequires:	svgalib-devel
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		x11bindir	/usr/X11R6/bin
@@ -101,7 +101,7 @@ Przegl±darka plików DVI - wersja dla X Window System.
 %build
 %{__make} -f MakeFb CFLAGS="%{rpmcflags}"
 %{__make} -f MakeLX CFLAGS="%{rpmcflags}"
-%ifnarch sparc sparc64 ppc
+%ifarch %{ix86} alpha
 %{__make} -f MakeSVGA CFLAGS="%{rpmcflags}"
 %endif
 
@@ -113,19 +113,19 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 	$RPM_BUILD_ROOT%{x11bindir}
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
-echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
-%ifnarch sparc sparc64 ppc
-echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
-%endif
-echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
-
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
 install dvifb.linux $RPM_BUILD_ROOT%{_bindir}/dvifb
-%ifnarch sparc sparc64 ppc
-install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
-%endif
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
+
 install dvilx.linux $RPM_BUILD_ROOT%{x11bindir}/dvilx
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
+
+%ifarch %{ix86} alpha
+install dvisvga.linux $RPM_BUILD_ROOT%{_bindir}/dvisvga
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
+%endif
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
 gzip -9nf README
 
@@ -143,7 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/dvifb
 %{_mandir}/man1/dvifb*
 
-%ifnarch sparc sparc64 ppc
+%ifarch %{ix86} alpha
 %files -n dvisvga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dvisvga
