@@ -127,14 +127,12 @@ echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
-gzip -9nf README
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc/tmview.dvi doc/tm.ps README*
+%doc doc/tmview.dvi doc/tm.ps README
 %{_sysconfdir}/%{name}/*
 %{_mandir}/man1/%{name}*
 
