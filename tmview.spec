@@ -2,9 +2,6 @@
 # Conditional build:
 %bcond_without	svga		# without SVGAlib support
 #
-%ifnarch %{ix86} alpha
-%undefine	with_svga
-%endif
 Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
