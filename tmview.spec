@@ -2,8 +2,8 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	5
-License:	Distributable
+Release:	6
+License:	distributable
 Group:		Applications/Publishing
 Source0:	ftp://ftp.gust.org.pl:/TeX/dviware/tmview/tmv%{version}.tgz
 Source1:	%{name}.conf
