@@ -2,7 +2,7 @@ Summary:	DVI files viewer
 Summary(pl):	Przegl±darka plików DVI
 Name:		tmview
 Version:	0103
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/Publishing
 Group(cs):	Aplikace/Publikování
@@ -26,17 +26,32 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 DVI previewer for SVGAlib, framebuffer device or Xlib. Fast, offers
 xdvi-like anti-aliasing, text-string searching, arbitrary-zooming,
 bookmarks, some of the hypertex features, renders eps-figures by
-running gs.
+running gs. tmview does not support pxl-files. tmview ignores all
+'special'-commands and has no font-replacing mechanism.
 
 This package contains only documentation and manuals. For software
 look into dvifb, dvisvga and dvilx packages.
+
+%description -l cs
+tmview je celo-obrazovkový prohlí¾eè .dvi souborù vyrobených systémem
+TeX. Mù¾ete si výsledný dokument prohlédnout je¹tì pøedtím, ne¾ ho
+necháte vytisknout, nebo ho nìkomu po¹lete. Podporuje prohlí¾ení v
+èerno-bílém provedenení nebo v odstínech ¹edi. Mù¾ete si dokument
+libovolnì zvìt¹it (a zaplatíte za to jenom lehkým sní¾ením rychlosti).
+Mù¾ete si nastavit zará¾ky pro mìøení vzdáleností nebo mù¾ete
+vyhledávat v textu. Mù¾ete si prohlédnout nìkolik souborù, nastavit si
+zálo¾ky a nechat si je ulo¾it do startovacího souboru. tmview
+nepodporuje PXL soubory, ignoruje v¹echny speciální (special) pøíkazy
+a nepodporuje nahrazování fontù.
 
 %description -l pl
 Przegl±darka plików DVI. Podgl±dane pliki mog± byæ wy¶wietlane za
 pomoc± SVGAlib, na framebuferze lub po prostu w X-ach. Program jest
 szybki, umo¿liwia anty-aliasing w stylu xdvi, wyszukiwanie tekstów,
 powiêkszanie, zak³adki, niektóre z w³a¶ciwo¶ci hipertekstowych oraz
-wy¶wietlanie plików EPS (za pomoc± GhostScript-a).
+wy¶wietlanie plików EPS (za pomoc± GhostScript-a). tmview nie wspiera
+plików pxl. Ignoruje wszystkie komendy 'special' i nie ma mechanizmu
+zastêpowania fontów.
 
 Ten pakiet zawiera tylko dokumentacjê i manuale. Oprogramowanie
 znajduje siê w pakietach dvifb, dvisvga oraz dvilx.
@@ -58,6 +73,7 @@ Przegl±darka plików DVI - wersja pod framebuffer
 
 %package -n dvisvga
 Summary:	DVI files viewer - SVGAlib version
+Summary(cs):	Prohlí¾eè souborù DVI pro knihovnu SVGAlib
 Summary(pl):	Przegl±darka plików DVI - wersja dla SVGAlib
 Group:		Applications/Publishing
 Group(cs):	Aplikace/Publikování
@@ -107,11 +123,11 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1 \
 	$RPM_BUILD_ROOT%{x11bindir}
 
 install doc/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
-echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvifb.1
 %ifnarch sparc sparc64
-echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvisvga.1
 %endif
-echo .so %{name}.1.gz > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
+echo .so %{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/dvilx.1
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tmviewrc
 
