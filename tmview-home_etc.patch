@@ -1,0 +1,27 @@
+diff -Nru tmview.old/doc/tmview.1 tmview/doc/tmview.1
+--- tmview.old/doc/tmview.1	Sun Mar  4 14:57:22 2001
++++ tmview/doc/tmview.1	Thu Nov  6 12:35:43 2003
+@@ -168,6 +168,8 @@
+ However, \fBtmview\fP will never write to the system startup-file.
+ The default the user start-upfile is "~/.dvisvga", "~/.dvifb" or "~/.dvilx".
+ 
++When HOME_ETC is set user start-upfile is $HOME_ETC/.dvisvga, $HOME_ETC/.dvifb
++or $HOME_ETC/.dvilx.
+ 
+ .SH COPYING 
+ 
+diff -Nru tmview.old/src/rwconf.c tmview/src/rwconf.c
+--- tmview.old/src/rwconf.c	Sun Mar  4 14:57:22 2001
++++ tmview/src/rwconf.c	Thu Nov  6 12:31:45 2003
+@@ -19,8 +19,9 @@
+ int confopen(int mode) {    /* 0=read 1=write*/
+   char* bustr=NULL;
+   char* homedir;
+-  
+-  homedir = getenv("HOME");
++
++  homedir = getenv("HOME_ETC");
++  if (!homedir) homedir = getenv("HOME");
+   if(startupfilename[0]=='~' && homedir!=NULL){
+     stralloccpy(&bustr,startupfilename);
+     freemem(&startupfilename);
