@@ -3,7 +3,7 @@
 %bcond_without	svga		# without SVGAlib support
 #
 Summary:	DVI files viewer
-Summary(pl.UTF-8):   Przeglądarka plików DVI
+Summary(pl.UTF-8):	Przeglądarka plików DVI
 Name:		tmview
 Version:	0103
 Release:	11
@@ -59,7 +59,7 @@ znajduje się w pakietach dvifb, dvisvga oraz dvilx.
 
 %package -n dvifb
 Summary:	DVI files viewer - framebuffer version
-Summary(pl.UTF-8):   Przeglądarka plików DVI - wersja pod framebuffer
+Summary(pl.UTF-8):	Przeglądarka plików DVI - wersja pod framebuffer
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
@@ -71,8 +71,8 @@ Przeglądarka plików DVI - wersja pod framebuffer
 
 %package -n dvisvga
 Summary:	DVI files viewer - SVGAlib version
-Summary(cs.UTF-8):   Prohlížeč souborů DVI pro knihovnu SVGAlib
-Summary(pl.UTF-8):   Przeglądarka plików DVI - wersja dla SVGAlib
+Summary(cs.UTF-8):	Prohlížeč souborů DVI pro knihovnu SVGAlib
+Summary(pl.UTF-8):	Przeglądarka plików DVI - wersja dla SVGAlib
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
@@ -84,7 +84,7 @@ Przeglądarka plików DVI - wersja dla SVGAlib.
 
 %package -n dvix11
 Summary:	DVI files viewer - X11 version
-Summary(pl.UTF-8):   Przeglądarka plików DVI - wersja dla X Window System
+Summary(pl.UTF-8):	Przeglądarka plików DVI - wersja dla X Window System
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
