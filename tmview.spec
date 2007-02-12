@@ -3,7 +3,7 @@
 %bcond_without	svga		# without SVGAlib support
 #
 Summary:	DVI files viewer
-Summary(pl):	Przegl±darka plików DVI
+Summary(pl.UTF-8):   PrzeglÄ…darka plikÃ³w DVI
 Name:		tmview
 Version:	0103
 Release:	11
@@ -33,66 +33,66 @@ running gs. tmview does not support pxl-files. tmview ignores all
 This package contains only documentation and manuals. For software
 look into dvifb, dvisvga and dvilx packages.
 
-%description -l cs
-tmview je celo-obrazovkovı prohlí¾eè .dvi souborù vyrobenıch systémem
-TeX. Mù¾ete si vıslednı dokument prohlédnout je¹tì pøedtím, ne¾ ho
-necháte vytisknout, nebo ho nìkomu po¹lete. Podporuje prohlí¾ení v
-èerno-bílém provedenení nebo v odstínech ¹edi. Mù¾ete si dokument
-libovolnì zvìt¹it (a zaplatíte za to jenom lehkım sní¾ením rychlosti).
-Mù¾ete si nastavit zará¾ky pro mìøení vzdáleností nebo mù¾ete
-vyhledávat v textu. Mù¾ete si prohlédnout nìkolik souborù, nastavit si
-zálo¾ky a nechat si je ulo¾it do startovacího souboru. tmview
-nepodporuje PXL soubory, ignoruje v¹echny speciální (special) pøíkazy
-a nepodporuje nahrazování fontù.
+%description -l cs.UTF-8
+tmview je celo-obrazovkovÃ½ prohlÃ­Å¾eÄ .dvi souborÅ¯ vyrobenÃ½ch systÃ©mem
+TeX. MÅ¯Å¾ete si vÃ½slednÃ½ dokument prohlÃ©dnout jeÅ¡tÄ› pÅ™edtÃ­m, neÅ¾ ho
+nechÃ¡te vytisknout, nebo ho nÄ›komu poÅ¡lete. Podporuje prohlÃ­Å¾enÃ­ v
+Äerno-bÃ­lÃ©m provedenenÃ­ nebo v odstÃ­nech Å¡edi. MÅ¯Å¾ete si dokument
+libovolnÄ› zvÄ›tÅ¡it (a zaplatÃ­te za to jenom lehkÃ½m snÃ­Å¾enÃ­m rychlosti).
+MÅ¯Å¾ete si nastavit zarÃ¡Å¾ky pro mÄ›Å™enÃ­ vzdÃ¡lenostÃ­ nebo mÅ¯Å¾ete
+vyhledÃ¡vat v textu. MÅ¯Å¾ete si prohlÃ©dnout nÄ›kolik souborÅ¯, nastavit si
+zÃ¡loÅ¾ky a nechat si je uloÅ¾it do startovacÃ­ho souboru. tmview
+nepodporuje PXL soubory, ignoruje vÅ¡echny speciÃ¡lnÃ­ (special) pÅ™Ã­kazy
+a nepodporuje nahrazovÃ¡nÃ­ fontÅ¯.
 
-%description -l pl
-Przegl±darka plików DVI. Podgl±dane pliki mog± byæ wy¶wietlane za
-pomoc± SVGAlib, na framebuferze lub po prostu w X-ach. Program jest
-szybki, umo¿liwia anty-aliasing w stylu xdvi, wyszukiwanie tekstów,
-powiêkszanie, zak³adki, niektóre z w³a¶ciwo¶ci hipertekstowych oraz
-wy¶wietlanie plików EPS (za pomoc± GhostScript-a). tmview nie wspiera
-plików pxl. Ignoruje wszystkie komendy 'special' i nie ma mechanizmu
-zastêpowania fontów.
+%description -l pl.UTF-8
+PrzeglÄ…darka plikÃ³w DVI. PodglÄ…dane pliki mogÄ… byÄ‡ wyÅ›wietlane za
+pomocÄ… SVGAlib, na framebuferze lub po prostu w X-ach. Program jest
+szybki, umoÅ¼liwia anty-aliasing w stylu xdvi, wyszukiwanie tekstÃ³w,
+powiÄ™kszanie, zakÅ‚adki, niektÃ³re z wÅ‚aÅ›ciwoÅ›ci hipertekstowych oraz
+wyÅ›wietlanie plikÃ³w EPS (za pomocÄ… GhostScript-a). tmview nie wspiera
+plikÃ³w pxl. Ignoruje wszystkie komendy 'special' i nie ma mechanizmu
+zastÄ™powania fontÃ³w.
 
-Ten pakiet zawiera tylko dokumentacjê i manuale. Oprogramowanie
-znajduje siê w pakietach dvifb, dvisvga oraz dvilx.
+Ten pakiet zawiera tylko dokumentacjÄ™ i manuale. Oprogramowanie
+znajduje siÄ™ w pakietach dvifb, dvisvga oraz dvilx.
 
 %package -n dvifb
 Summary:	DVI files viewer - framebuffer version
-Summary(pl):	Przegl±darka plików DVI - wersja pod framebuffer
+Summary(pl.UTF-8):   PrzeglÄ…darka plikÃ³w DVI - wersja pod framebuffer
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
 %description -n dvifb
 DVI files viewer - framebuffer version
 
-%description -n dvifb -l pl
-Przegl±darka plików DVI - wersja pod framebuffer
+%description -n dvifb -l pl.UTF-8
+PrzeglÄ…darka plikÃ³w DVI - wersja pod framebuffer
 
 %package -n dvisvga
 Summary:	DVI files viewer - SVGAlib version
-Summary(cs):	Prohlí¾eè souborù DVI pro knihovnu SVGAlib
-Summary(pl):	Przegl±darka plików DVI - wersja dla SVGAlib
+Summary(cs.UTF-8):   ProhlÃ­Å¾eÄ souborÅ¯ DVI pro knihovnu SVGAlib
+Summary(pl.UTF-8):   PrzeglÄ…darka plikÃ³w DVI - wersja dla SVGAlib
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
 %description -n dvisvga
 DVI files viewer - SVGAlib version.
 
-%description -n dvisvga -l pl
-Przegl±darka plików DVI - wersja dla SVGAlib.
+%description -n dvisvga -l pl.UTF-8
+PrzeglÄ…darka plikÃ³w DVI - wersja dla SVGAlib.
 
 %package -n dvix11
 Summary:	DVI files viewer - X11 version
-Summary(pl):	Przegl±darka plików DVI - wersja dla X Window System
+Summary(pl.UTF-8):   PrzeglÄ…darka plikÃ³w DVI - wersja dla X Window System
 Group:		Applications/Publishing
 Requires:	%{name} = %{version}-%{release}
 
 %description -n dvix11
 DVI files viewer - X11 version.
 
-%description -n dvix11 -l pl
-Przegl±darka plików DVI - wersja dla X Window System.
+%description -n dvix11 -l pl.UTF-8
+PrzeglÄ…darka plikÃ³w DVI - wersja dla X Window System.
 
 %prep
 %setup -q -n %{name}
